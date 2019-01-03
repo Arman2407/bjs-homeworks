@@ -1,4 +1,4 @@
 let name = 'Arman.';
-let message = 'Привет, мир! Меня зовут ' + name
+let message = `Привет, мир! Меня зовут ${name}`;
 
-console.log(`${message}`);
+console.log(message);
