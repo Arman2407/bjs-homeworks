@@ -1,19 +1,16 @@
 'use strict';
 
-function askDrink() {
-  let dateOfBirthday = new Date(1992, 7, 24);
-  dateOfBirthday.getFullYear();
-  let today = new Date(2019, 1, 1);
+function askDrink(dateOfBirthday, name) {
+  let today = new Date();
   today.getFullYear();
-  let name = 'Arman';
   const age = today.getFullYear() - dateOfBirthday.getFullYear();
   
   if (age > 18) {
-    console.log('Не желаете ли олд-фэшн, ' + name + '?')
+    return`Не желаете ли олд-фэшн, ${name} ?`;
   }
   else if (age < 18) {
-    console.log('Сожалею, ' + name + ', но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!')
+    return`Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`;
   }
 }
 
-askDrink()
+console.log(askDrink(new Date(1992, 7, 24), 'Арман'));
