@@ -1,20 +1,23 @@
 'use strict';
 
-function getAverageMark() {
-  let marks = [1,2,3,4,5];
-  let sum = 0;
-  //Начинаем вычилсение средней оценки:
+function getAverageMark(marks) {
+  if (marks.length > 5) {
+    let marksSlice = marks.slice(0, 5);
+    let sum = 0;
+  // вычисление средней оценки:
+  for (let i = 0; i < marksSlice.length; i++) {
+    sum += marks[i];
+  }
+    return('Количество оценок больше 5\n' + sum / marksSlice.length);
+  }
+  else {
+    let sum = 0;
+  // вычисление средней оценки:
   for (let i = 0; i < marks.length; i++) {
     sum += marks[i];
   }
-  //Нашли среднюю оценку:
-  let averageSum = sum / marks.length
-
-  if (marks.length <= 5)
-    console.log(averageSum);
-  else if (marks.length > 5) {
-    console.log('Количество оценок больше 5');
+    return(sum / marks.length)
   }   
 }
 
-getAverageMark()
+console.log(getAverageMark([1,2,3,4,5,6]))
