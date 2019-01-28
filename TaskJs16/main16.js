@@ -8,48 +8,52 @@ function compareArrays(arr1, arr2) {
         return false
 }
 
-function memoize(fn, limit) {
+const sum = (a, b) => {
+    if(typeof a === 'number' && typeof b === 'number'){
+        console.log('\nфункция не из памяти');
+        return a + b;
+    } else {
+        return false;
+    }
+};
 
-    let results = [{
-        args: [],
-        result: 0,
-    }];
-
-    console.log('Результат из памяти');
-
-    return function (...rest) {
-        console.log('Функция не из памяти');
-        for (let i = 0; i < results.length; i++) {
-
-            let args = results[i].args;
-
-            if (compareArrays(args, arguments)) {
-                return args;
-            }
-        }
-
-        if (results.length > limit) {
-            results.length = limit;
-        }
-
-        results.push({
-            args: arguments,
-            result: fn(arguments)
-        });
-
-        return fn(arguments);
-    };
-
+const resultFunc = (obj, arr2) => {
+    obj.filter((object) => {
+        const res = compareArrays(object.args, arr2);
+        if(!res) obj.push(arr2);
+        return res;
+    });
 }
 
-const sum = (a, b) => a + b;
+function memoize(fn, limit) {
+    const results = [];
 
-const mSum = memoize(sum, 2); // 2 результата хранятся в памяти
+    return (x, y) => {
+        let objDouble = null;
+        const double = results.some((object) => {
+            if(compareArrays([x, y], object.args)) {
+                objDouble = object;
+                return object;
+            }
+        });
 
-// Вызов этих функций даёт один и тот же результат
-(sum(3, 4)); // 7
-/*
-  разница только в том, что mSum запоминает результат (7)
-  и повторно не делает вычисления
- */
-mSum(3, 4); // 7
+        if(double) {
+            return `\nрезультат из памяти ${objDouble.result}`;
+        } else {
+            const summa = fn(x, y);
+            results.push({
+                args: [x, y],
+                result: summa
+            });
+            results.length > limit ? results.shift() : void 0;
+            console.log(`длина массива историй ${results.length}`);
+            return summa;
+        }
+        
+    };
+}
+
+const mSum = memoize(sum, 2);
+console.log(mSum(4,3));
+console.log(mSum(4,3));
+console.log(mSum(8,3));
