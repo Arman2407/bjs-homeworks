@@ -89,39 +89,39 @@ console.log(getPersonData({
 
 // Задача 3
 
-function getAverageScore(data) {
-    let obj = {};
+"use strict";
 
-    let average = 0;
-    let counter = 0;
+function getAverageScore( data ) {
+	let average = 0, index = 0;
+	for(let name in data) {
+		let summ = 0, midd; // summ - сумма, midd - средний результат
 
-    for (let name in data) {
-        let count = 0;
-        for (let i = 0; i < data[name].length; i++) {
-            count = (count + data[name][i]);
-            obj[name] = count / data[name].length;
-        }
+		for(let i = 0; i < data[name].length; i++) {
+			let nameData = data[name][i];
+			summ += nameData;
+		}
 
-        average += obj[name];
-        counter++;
-    }
+		midd = summ / data[name].length; // средний результат каждого предмета
+		average += midd; // добавляю его в average
 
-    obj.average = average / counter;
+		console.log(`${name}: ${midd}`);
+		index++;
+	}
 
-    return obj;
+	average = average / index; // средний результат по всем предметам
+	console.log(`average: ${average}`);
+
 }
 
-// Проверка
-console.log('\n');
-
+// проверка
 console.log(getAverageScore({
-    algebra: [2, 4, 5, 2, 3, 4],
-    geometry: [2, 4, 5],
-    russian: [3, 3, 4, 5],
-    physics: [5, 5],
-    music: [2, 2, 6],
-    english: [4, 4, 3],
-    poetry: [5, 3, 4],
-    chemistry: [2],
-    french: [4, 4],
+	algebra: [2, 4, 5, 2, 3, 4],
+	geometry: [2, 4, 5],
+	russian: [3, 3, 4, 5],
+	physics: [5, 5],
+	music: [2, 2, 6],
+	english: [4, 4, 3],
+	poetry: [5, 3, 4],
+	chemistry: [2],
+	french: [4, 4]
 }));
